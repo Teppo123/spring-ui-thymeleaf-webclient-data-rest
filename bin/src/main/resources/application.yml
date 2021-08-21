@@ -1,0 +1,13 @@
+server:
+  port: 8122
+  
+url:
+  userController: http://localhost:8123/user-controller
+  deleteUser: http://localhost:8123/user-controller/delete-user
+  getUsers: http://localhost:8123/user-controller/users
+  saveUser: http://localhost:8123/user-controller/save-user
+
+logging:
+  level:
+    com:
+      example: DEBUG

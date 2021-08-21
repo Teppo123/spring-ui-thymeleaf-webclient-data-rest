@@ -1,0 +1,13 @@
+server:
+  port: 8122
+  
+url:
+  userRoot: http://localhost:8123
+  deactivateUser: /special-user-actions/deactivateUserById/
+  getUsers: /users/search/findAllByDeactivatedFalse
+  saveUser: /users
+
+logging:
+  level:
+    com:
+      example: DEBUG
