@@ -10,13 +10,13 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO extends RepresentationModel<UserDTO> implements Serializable {
 
 	private static final long serialVersionUID = 176712563459609446L;
