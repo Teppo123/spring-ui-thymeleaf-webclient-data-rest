@@ -1,9 +1,5 @@
 package com.example.springuithymeleaf.services;
 
-import java.time.Duration;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.springuithymeleaf.dto.UserDTO;
+
+import reactor.core.publisher.Mono;
 
 @Service
 public class UserService {
@@ -26,25 +24,21 @@ public class UserService {
 	@Value("${url.deactivateUser}")
 	private String urlDeactivateUser;
 
-	private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(3);
-
 	@Autowired
 	private WebClient localApiClient;
 
-	public List<UserDTO> getUsers() {
+	public Mono<CollectionModel<UserDTO>> getUsers() {
 		return this.localApiClient.get().uri(this.urlGetUsers).accept(MediaTypes.HAL_JSON).retrieve()
 				.bodyToMono(new ParameterizedTypeReference<CollectionModel<UserDTO>>() {
-				}).block(REQUEST_TIMEOUT).getContent().stream().collect(Collectors.toList());
+				});
 	}
 
-	public UserDTO saveUser(UserDTO user) {
-		return this.localApiClient.post().uri(this.urlSaveUser).bodyValue(user).retrieve().bodyToMono(UserDTO.class)
-				.block(REQUEST_TIMEOUT);
+	public Mono<UserDTO> saveUser(UserDTO user) {
+		return this.localApiClient.post().uri(this.urlSaveUser).bodyValue(user).retrieve().bodyToMono(UserDTO.class);
 	}
 
-	public Integer deactivateUserById(long id) {
-		return this.localApiClient.put().uri(this.urlDeactivateUser + id).retrieve().bodyToMono(Integer.class)
-				.block(REQUEST_TIMEOUT);
+	public Mono<Integer> deactivateUserById(long id) {
+		return this.localApiClient.put().uri(this.urlDeactivateUser + id).retrieve().bodyToMono(Integer.class);
 	}
 
 }
