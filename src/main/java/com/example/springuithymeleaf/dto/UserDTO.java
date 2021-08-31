@@ -26,8 +26,6 @@ public class UserDTO extends RepresentationModel<UserDTO> implements Serializabl
 
 	private static final long serialVersionUID = 176712563459609446L;
 
-	private long id;
-
 	private String firstName;
 
 	private String lastName;
