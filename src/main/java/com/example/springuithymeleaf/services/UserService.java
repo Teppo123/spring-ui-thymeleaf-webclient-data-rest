@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.springuithymeleaf.dto.UserDTO;
+import com.example.springuithymeleaf.dto.UserDeactivationDTO;
 
 import reactor.core.publisher.Mono;
 
@@ -20,9 +21,6 @@ public class UserService {
 
 	@Value("${url.saveUser}")
 	private String urlSaveUser;
-
-	@Value("${url.deactivateUser}")
-	private String urlDeactivateUser;
 
 	@Autowired
 	private WebClient localApiClient;
@@ -37,10 +35,9 @@ public class UserService {
 		return this.localApiClient.post().uri(this.urlSaveUser).bodyValue(user).retrieve().bodyToMono(UserDTO.class);
 	}
 
-	public Mono<UserDTO> deactivateUserById(long id) {
-		return this.localApiClient.patch()
-				.uri(uriBuilder -> uriBuilder.pathSegment(this.urlDeactivateUser, "{id}").build(id))
-				.bodyValue(UserDTO.builder().id(id).deactivated(true).build()).retrieve().bodyToMono(UserDTO.class);
+	public Mono<UserDTO> deactivateUser(String link) {
+		return this.localApiClient.patch().uri(link).bodyValue(new UserDeactivationDTO()).retrieve()
+				.bodyToMono(UserDTO.class);
 	}
 
 }
