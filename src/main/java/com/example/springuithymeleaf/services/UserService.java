@@ -37,8 +37,10 @@ public class UserService {
 		return this.localApiClient.post().uri(this.urlSaveUser).bodyValue(user).retrieve().bodyToMono(UserDTO.class);
 	}
 
-	public Mono<Integer> deactivateUserById(long id) {
-		return this.localApiClient.put().uri(this.urlDeactivateUser + id).retrieve().bodyToMono(Integer.class);
+	public Mono<UserDTO> deactivateUserById(long id) {
+		return this.localApiClient.patch()
+				.uri(uriBuilder -> uriBuilder.pathSegment(this.urlDeactivateUser, "{id}").build(id))
+				.bodyValue(UserDTO.builder().id(id).deactivated(true).build()).retrieve().bodyToMono(UserDTO.class);
 	}
 
 }

@@ -2,7 +2,7 @@ server:
   port: 8122
 url:
   userRoot: http://localhost:8123
-  deactivateUser: /users/deactivate/
+  deactivateUser: users
   getUsers: /users/search/findAllByDeactivatedFalse
   saveUser: /users
 logging:

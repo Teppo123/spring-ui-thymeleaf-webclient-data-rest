@@ -10,13 +10,17 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDTO extends RepresentationModel<UserDTO> implements Serializable {
 
 	private static final long serialVersionUID = 176712563459609446L;
@@ -34,5 +38,7 @@ public class UserDTO extends RepresentationModel<UserDTO> implements Serializabl
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonProperty("createdAt")
 	private LocalDateTime creationTime;
+
+	private boolean deactivated;
 
 }
